@@ -1,9 +1,9 @@
-import Home from '../components/home/Home.vue'
-import Login from '../components/login/Login.vue'
-import ProfileWrapper from '../components/profile/ProfileWrapper.vue'
-import Profile from '../components/profile/Profile.vue'
-import EditProfile from '../components/profile/edit-profile/EditProfile.vue'
-import EditPassword from '../components/profile/edit-password/EditPassword.vue'
+import Home from '../views/Home.vue'
+import Login from '../views/Login.vue'
+import Profile from '../views/profile/Profile.vue'
+import ProfileInfo from '../views/profile/ProfileInfo.vue'
+import EditProfile from '../views/profile/EditProfile.vue'
+import EditPassword from '../views/profile/EditPassword.vue'
 
 export default [{
 	path: '/',
@@ -17,12 +17,12 @@ export default [{
 	meta: {requiresGuest: true}
 }, {
 	path: '/profile',
-	component: ProfileWrapper,
+	component: Profile,
 	children: [
 		{
 			path: '',
 			name: 'profile',
-			component: Profile,
+			component: ProfileInfo,
 			meta: {requiresAuth: true}
 		}, {
 			path: 'edit-profile',

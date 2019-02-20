@@ -7,7 +7,7 @@
 </template>
 
 <script>
-	import {siteName} from './../../config';
+	import {siteName} from '../config';
 
 	export default {
 		data () {

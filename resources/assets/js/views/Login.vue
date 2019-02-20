@@ -16,8 +16,8 @@
 </template>
 
 <script>
-	import LoginForm from './../login/LoginForm.vue'
-	import jwtToken from '../../helpers/jwt-token'
+	import LoginForm from '../components/auth/LoginForm.vue'
+	import jwtToken from '../helpers/jwt-token'
 	import {mapActions} from 'vuex'
 
 	export default {

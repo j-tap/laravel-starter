@@ -8,7 +8,7 @@ div
 </template>
 
 <script>
-import EditPasswordForm from './EditPasswordForm.vue'
+import EditPasswordForm from '../../components/profile/EditPasswordForm.vue'
 
 export default {
 	components: {

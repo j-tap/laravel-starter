@@ -10,8 +10,8 @@ section.page
 </template>
 
 <script>
-import AppHeader from './layout/AppHeader.vue';
-import AppFooter from './layout/AppFooter.vue';
+import AppHeader from './components/layout/AppHeader.vue';
+import AppFooter from './components/layout/AppFooter.vue';
 
 export default {
 	components: {

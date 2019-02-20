@@ -16,7 +16,7 @@ Vue.use(VueNoty, {
 
 import router from './router/router'
 import store from './store/index'
-import App from './components/App.vue'
+import App from './App.vue'
 import jwtToken from './helpers/jwt-token'
 
 axios.interceptors.request.use(config => {

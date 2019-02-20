@@ -8,7 +8,7 @@ div
 </template>
 
 <script>
-import EditProfileForm from './EditProfileForm.vue'
+import EditProfileForm from '../../components/profile/EditProfileForm.vue'
 import {mapActions} from 'vuex'
 
 export default {

@@ -37,7 +37,7 @@ form(@submit.prevent='updatePassword')
 
 <script>
 import {mapState} from 'vuex'
-import {api} from '../../../config'
+import {api} from '../../config'
 
 export default {
 	data () {
