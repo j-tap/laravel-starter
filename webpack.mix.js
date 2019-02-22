@@ -17,4 +17,4 @@ mix
 	.copy('resources/assets/img/', 'public/img/', false)
 	.sourceMaps()
 	.disableNotifications()
-	.browserSync('http://laravel-vue-spa')
+	.browserSync('http://laravel-starter')
