@@ -11,7 +11,7 @@
 |
 */
 
-Route::post('authenticate', 'AuthenticateController@authenticate');
+Route::post('login', 'AuthenticateController@authenticate');
 
 Route::group(['middleware' => 'jwt.auth'], function()
 {

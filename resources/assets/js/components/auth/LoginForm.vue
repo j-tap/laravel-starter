@@ -25,7 +25,7 @@ form(@submit.prevent='login')
 
 	.form-group
 		button.btn.btn-primary.btn-block(type='submit' :disabled='loading')
-			span(v-show='loading') Logging in
+			span(v-show='loading') Wait...
 			span(v-show='!loading') Login
 
 </template>

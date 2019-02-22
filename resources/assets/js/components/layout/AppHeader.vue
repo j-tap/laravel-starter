@@ -26,13 +26,23 @@ header.header.mb-4
 
 					router-link(
 						v-show='!isLoggedIn' 
-						:to='{name: "login"}' 
+						:to='{name: "signin"}' 
 						tag='li' 
 						class='nav-item' 
 						activeClass='active' 
 						exact
 					)
 						a.nav-link Login
+
+					router-link(
+						v-show='!isLoggedIn' 
+						:to='{name: "signup"}' 
+						tag='li' 
+						class='nav-item' 
+						activeClass='active' 
+						exact
+					)
+						a.nav-link Registration
 
 					router-link(
 						v-show='isLoggedIn' 

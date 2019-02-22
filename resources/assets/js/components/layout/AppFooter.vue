@@ -4,9 +4,7 @@ footer
 	.container
 		| &copy;
 		span(v-once) {{ siteName }}
-		span(v-once) {{ currentYear }},
-		| developed by 
-		a(href='#' target='_blank') dev
+		span(v-once) {{ currentYear }}
 
 </template>
 

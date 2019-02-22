@@ -16,23 +16,23 @@
 </template>
 
 <script>
-	import LoginForm from '../components/auth/LoginForm.vue'
-	import jwtToken from '../helpers/jwt-token'
-	import {mapActions} from 'vuex'
+import LoginForm from '../components/auth/LoginForm.vue'
+import jwtToken from '../helpers/jwt-token'
+import {mapActions} from 'vuex'
 
-	export default {
-		components: {
-			'login-form': LoginForm
-		},
-		methods: {
-			...mapActions([
-				'setAuthUser'
-			]),
-			loginSuccess(data) {
-				jwtToken.setToken(data.token);
-				this.setAuthUser(data.user);
-				this.$router.push({name: 'profile'});
-			}
+export default {
+	components: {
+		'login-form': LoginForm
+	},
+	methods: {
+		...mapActions([
+			'setAuthUser'
+		]),
+		loginSuccess(data) {
+			jwtToken.setToken(data.token);
+			this.setAuthUser(data.user);
+			this.$router.push({name: 'profile'});
 		}
 	}
+}
 </script>
