@@ -11,7 +11,7 @@
 		.col-12.col-md-6.col-lg-4
 			.card
 				.card-body
-					login-form(@loginSuccess='loginSuccess')
+					LoginForm(@loginSuccess='loginSuccess')
 
 </template>
 
@@ -22,7 +22,7 @@ import {mapActions} from 'vuex'
 
 export default {
 	components: {
-		'login-form': LoginForm
+		LoginForm
 	},
 	methods: {
 		...mapActions([

@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
-class AuthenticateController extends Controller
+class LoginController extends Controller
 {
-	public function authenticate(Request $request)
+	public function login (Request $request)
 	{
 		$rules = [
 			'email'    => 'required|email',
