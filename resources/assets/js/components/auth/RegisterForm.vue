@@ -1,6 +1,18 @@
 <template lang='pug'>
 form(@submit.prevent='register')
 	.form-group
+		label(for='name') Name
+		input.form-control(
+			type='text'
+			:class='{"is-invalid": error.name}'
+			id='name'
+			v-model='form.name'
+			autocomplete='off'
+			:disabled='loading'
+		)
+		.invalid-feedback(v-show='error.name') {{ error.name }}
+		
+	.form-group
 		label(for='email') Email
 		input.form-control(
 			type='email'
@@ -11,7 +23,7 @@ form(@submit.prevent='register')
 			:disabled='loading'
 		)
 		.invalid-feedback(v-show='error.email') {{ error.email }}
-
+		
 	.form-group
 		label(for='password') Password
 		input.form-control(
@@ -34,49 +46,65 @@ form(@submit.prevent='register')
 import {api} from '../../config'
 
 export default {
-    data () {
-        return {
-            loading: false,
-            form: {
-                email: null,
-                password: null
-            },
-            error: {
-                email: null,
-                password: null
-            }
-        }
-    },
-    methods: {
-        register ()
-        {
-            this.loading = true;
-            axios.post(api.register, this.form)
-                .then(res => {
-                    this.loading = false;
-                    this.$noty.success('Your registration success!');
-                    this.$emit('registrationSuccess', res.data);
-                })
-                .catch(err => {
-                    (err.response.data.error) && this.$noty.error(err.response.data.error);
+	data () {
+		return {
+			loading: false,
+			form: {
+				name: null,
+				email: null,
+				password: null
+			},
+			error: {
+				name: null,
+				email: null,
+				password: null
+			}
+		}
+	},
+	methods: {
+		register ()
+		{
+			this.loading = true;
+			axios.post(api.register, this.form)
+				.then(res => {
+					this.loading = false;
+					this.$noty.success(res.data.message);
+					this.$emit('registrationSuccess', res.data);
+					this.$router.push({name: 'index'});
+				})
+				.catch(err => {
+					const res = err.response.data;
 
-                    (err.response.data.errors)
-                        ? this.setErrors(err.response.data.errors)
-                        : this.clearErrors();
+					if (typeof res.error === 'string') {
+						this.$noty.error(res.error)
 
-                    this.loading = false;
-                });
-        },
-        setErrors (errors)
-        {
-            this.error.email = errors.email ? errors.email[0] : null;
-            this.error.password = errors.password ? errors.password[0] : null;
-        },
-        clearErrors ()
-        {
-            this.error.email = null;
-            this.error.password = null;
-        }
-    }
+					} else if (typeof res.error === 'object') {
+						this.setErrors(res.error)
+
+					} else {
+						
+						if (res.errors) {
+							this.setErrors(res.errors)
+						} else {
+							this.clearErrors();
+						}
+					}
+
+					this.loading = false;
+				});
+		},
+		setErrors (errors)
+		{
+			this.error.name = errors.name ? errors.name[0] : null;
+			this.error.email = errors.email ? errors.email[0] : null;
+			this.error.password = errors.password ? errors.password[0] : null;
+		},
+		clearErrors ()
+		{
+			this.error.name = null;
+			this.error.email = null;
+			this.error.password = null;
+		}
+	}
 }
 </script>

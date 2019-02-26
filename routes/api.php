@@ -11,13 +11,12 @@
 |
 */
 
-//Route::namespace('API')->group(function () {
-    Route::post('register', 'RegistrController@register');
-    Route::post('login', 'LoginController@login');
+Route::post('register', 'UserController@register');
+Route::post('login', 'UserController@login');
+Route::post('verify', 'UserController@verify');
 
-    Route::group(['middleware' => 'jwt.auth'], function () {
-        Route::get('user', 'UserController@show');
-        Route::post('user/profile/update', 'UserController@updateProfile');
-        Route::post('user/password/update', 'UserController@updatePassword');
-    });
-//});
+Route::group(['middleware' => 'jwt.auth'], function () {
+    Route::get('user', 'UserController@show');
+    Route::post('user/profile/update', 'UserController@updateProfile');
+    Route::post('user/password/update', 'UserController@updatePassword');
+});

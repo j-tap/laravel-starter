@@ -73,12 +73,13 @@ header.header.mb-4
 			'isLoggedIn'
 		]),
 		methods: {
-			logout() {
+			logout () 
+			{
 				jwtToken.removeToken();
 				this.$store.dispatch('unsetAuthUser')
 					.then(() => {
 						this.$noty.success('You are logged out');
-						this.$router.push({name: 'login'});
+						this.$router.push({name: 'signin'});
 					});
 			}
 		}

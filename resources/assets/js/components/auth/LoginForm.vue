@@ -7,7 +7,6 @@ form(@submit.prevent='login')
 			:class='{"is-invalid": error.email}'
 			id='email'
 			v-model='form.email'
-			autocomplete='off'
 			:disabled='loading'
 		)
 		.invalid-feedback(v-show='error.email') {{ error.email }}
@@ -54,15 +53,27 @@ export default {
 			axios.post(api.login, this.form)
 				.then(res => {
 					this.loading = false;
-					this.$noty.success('Welcome back!');
+					//this.$noty.success('Welcome back!');
 					this.$emit('loginSuccess', res.data);
+					this.$router.push({name: 'profile'});
 				})
 				.catch(err => {
-					(err.response.data.error) && this.$noty.error(err.response.data.error);
+					const res = err.response.data;
 
-					(err.response.data.errors)
-						? this.setErrors(err.response.data.errors)
-						: this.clearErrors();
+					if (typeof res.error === 'string') {
+						this.$noty.error(res.error)
+
+					} else if (typeof res.error === 'object') {
+						this.setErrors(res.error)
+
+					} else {
+						
+						if (res.errors) {
+							this.setErrors(res.errors)
+						} else {
+							this.clearErrors();
+						}
+					}
 
 					this.loading = false;
 				});
