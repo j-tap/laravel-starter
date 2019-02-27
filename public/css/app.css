@@ -11203,8 +11203,14 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 /*# sourceMappingURL=bootstrap.css.map */
+html {
+  height: 100%;
+}
+
 body {
+  position: relative;
   overflow-y: scroll;
+  min-height: 100%;
 }
 
 .fade-enter-active, .fade-leave-active {
@@ -11214,4 +11220,22 @@ body {
 
 .fade-enter, .fade-leave-active {
   opacity: 0;
+}
+
+.app {
+  position: static;
+  min-height: 100%;
+  padding-bottom: 80px;
+}
+
+.main {
+  position: relative;
+}
+
+.footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 80px;
 }

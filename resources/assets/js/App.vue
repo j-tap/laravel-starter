@@ -1,9 +1,10 @@
 <template lang='pug'>
-section.page
+.page
 	app-header
 
-	transition(name='fade' mode='out-in')
-		router-view
+	main.main
+		transition(name='fade' mode='out-in')
+			router-view
 
 	app-footer
 

@@ -1,10 +1,9 @@
 <template lang='pug'>
-footer
+footer.footer(v-once)
 	hr
 	.container
 		| &copy;
-		span(v-once) {{ siteName }}
-		span(v-once) {{ currentYear }}
+		span {{siteName}} 2018-{{currentYear}}
 
 </template>
 
@@ -20,3 +19,7 @@ export default {
 	}
 }
 </script>
+
+<style lang='scss' scoped>
+
+</style>

@@ -7,13 +7,13 @@
 </template>
 
 <script>
-	import {siteName} from '../config';
+import {siteName} from '../config'
 
-	export default {
-		data () {
-			return {
-				siteName: siteName
-			}
+export default {
+	data () {
+		return {
+			siteName: siteName
 		}
 	}
+}
 </script>

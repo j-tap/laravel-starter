@@ -15,8 +15,11 @@ Route::post('register', 'UserController@register');
 Route::post('login', 'UserController@login');
 Route::post('verify', 'UserController@verify');
 
-Route::group(['middleware' => 'jwt.auth'], function () {
+Route::group(['middleware' => 'jwt.auth'], function () 
+{
     Route::get('user', 'UserController@show');
+    Route::get('users', 'UserController@getAll');
+    Route::post('users/id', 'UserController@getById');
     Route::post('user/profile/update', 'UserController@updateProfile');
     Route::post('user/password/update', 'UserController@updatePassword');
 });
