@@ -22,6 +22,8 @@
 				span.text-muted Last visit: 
 				| {{ user.updated_at }}
 
+		button.btn.btn-info(v-on:click='listenForBroadcast') Message
+
 </template>
 
 <script>
