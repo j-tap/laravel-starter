@@ -1,5 +1,17 @@
 <template lang='pug'>
-form(@submit.prevent='login')
+form(@submit.prevent='register')
+	.form-group
+		label(for='name') Name
+		input.form-control(
+			type='text'
+			:class='{"is-invalid": error.name}'
+			id='name'
+			v-model='form.name'
+			autocomplete='off'
+			:disabled='loading'
+		)
+		.invalid-feedback(v-show='error.name') {{ error.name }}
+		
 	.form-group
 		label(for='email') Email
 		input.form-control(
@@ -7,10 +19,11 @@ form(@submit.prevent='login')
 			:class='{"is-invalid": error.email}'
 			id='email'
 			v-model='form.email'
+			autocomplete='off'
 			:disabled='loading'
 		)
 		.invalid-feedback(v-show='error.email') {{ error.email }}
-
+		
 	.form-group
 		label(for='password') Password
 		input.form-control(
@@ -25,7 +38,7 @@ form(@submit.prevent='login')
 	.form-group
 		button.btn.btn-primary.btn-block(type='submit' :disabled='loading')
 			span(v-show='loading') Wait...
-			span(v-show='!loading') Login
+			span(v-show='!loading') Registration
 
 </template>
 
@@ -37,25 +50,27 @@ export default {
 		return {
 			loading: false,
 			form: {
+				name: null,
 				email: null,
 				password: null
 			},
 			error: {
+				name: null,
 				email: null,
 				password: null
 			}
 		}
 	},
 	methods: {
-		login ()
+		register ()
 		{
 			this.loading = true;
-			axios.post(api.login, this.form)
+			axios.post(api.register, this.form)
 				.then(res => {
 					this.loading = false;
-					//this.$noty.success('Welcome back!');
-					this.$emit('loginSuccess', res.data);
-					this.$router.push({name: 'profile'});
+					this.$noty.success(res.data.message);
+					this.$emit('registrationSuccess', res.data);
+					this.$router.push({name: 'index'});
 				})
 				.catch(err => {
 					const res = err.response.data;
@@ -80,11 +95,13 @@ export default {
 		},
 		setErrors (errors)
 		{
+			this.error.name = errors.name ? errors.name[0] : null;
 			this.error.email = errors.email ? errors.email[0] : null;
 			this.error.password = errors.password ? errors.password[0] : null;
 		},
 		clearErrors ()
 		{
+			this.error.name = null;
 			this.error.email = null;
 			this.error.password = null;
 		}

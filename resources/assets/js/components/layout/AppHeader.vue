@@ -26,13 +26,23 @@ header.header.mb-4
 
 					router-link(
 						v-show='!isLoggedIn' 
-						:to='{name: "login"}' 
+						:to='{name: "signin"}' 
 						tag='li' 
 						class='nav-item' 
 						activeClass='active' 
 						exact
 					)
 						a.nav-link Login
+
+					router-link(
+						v-show='!isLoggedIn' 
+						:to='{name: "signup"}' 
+						tag='li' 
+						class='nav-item' 
+						activeClass='active' 
+						exact
+					)
+						a.nav-link Registration
 
 					router-link(
 						v-show='isLoggedIn' 
@@ -63,12 +73,13 @@ header.header.mb-4
 			'isLoggedIn'
 		]),
 		methods: {
-			logout() {
+			logout () 
+			{
 				jwtToken.removeToken();
 				this.$store.dispatch('unsetAuthUser')
 					.then(() => {
 						this.$noty.success('You are logged out');
-						this.$router.push({name: 'login'});
+						this.$router.push({name: 'signin'});
 					});
 			}
 		}

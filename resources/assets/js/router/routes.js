@@ -1,5 +1,7 @@
 import Home from '../views/Home.vue'
-import Login from '../views/Login.vue'
+import Signup from '../views/Register.vue'
+import Signin from '../views/Login.vue'
+import Verify from '../views/Verify.vue'
 import Profile from '../views/profile/Profile.vue'
 import ProfileInfo from '../views/profile/ProfileInfo.vue'
 import EditProfile from '../views/profile/EditProfile.vue'
@@ -11,9 +13,19 @@ export default [{
 	component: Home,
 	meta: {}
 }, {
-	path: '/login',
-	name: 'login',
-	component: Login,
+	path: '/signup',
+	name: 'signup',
+	component: Signup,
+	meta: {requiresGuest: true}
+}, {
+	path: '/signin',
+	name: 'signin',
+	component: Signin,
+	meta: {requiresGuest: true}
+},{
+	path: '/verify/:code',
+	name: 'verify',
+	component: Verify,
 	meta: {requiresGuest: true}
 }, {
 	path: '/profile',
