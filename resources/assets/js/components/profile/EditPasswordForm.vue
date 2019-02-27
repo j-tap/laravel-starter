@@ -56,10 +56,6 @@ export default {
 	methods: {
 		updatePassword ()
 		{
-			// uncomment the following 2 lines in your app
-			this.$noty.info('Edit Password is disabled for demo purpose');
-			return;
-
 			this.loading = true;
 			axios.post(api.updateUserPassword, this.form)
 				.then((res) => {
