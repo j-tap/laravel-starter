@@ -3,6 +3,9 @@ Starter SPA made with Laravel, Vue-router, Vuex, Axios, Bootstrap, Pug
 Based on [laravel-vue-spa](https://github.com/anindya-dhruba/laravel-vue-spa) Anindya Dhruba
 
 ## What's New
+ * Add page users list
+ * Add page 404
+ * Modify auth
  * Add [Pug](https://pugjs.org) template engine
  
 ## What's included 

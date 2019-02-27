@@ -237,4 +237,22 @@ class UserController extends Controller
 			], 500);
 		}
 	}
+
+	public function getAll (Request $request) 
+	{
+		return response()->json([
+			'success' => true, 
+			'users'=> User::where('id', '!=', auth()->id())->get()//User::all()
+		]);
+	}
+	
+	public function getById (Request $request) 
+	{
+		$id = $request->id;
+
+		return response()->json([
+			'success' => true, 
+			'user'=> User::find($id)
+		]);
+	}
 }

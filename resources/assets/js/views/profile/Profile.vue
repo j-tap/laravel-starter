@@ -24,11 +24,28 @@
 					exact
 				) Edit Password
 
+				.nav-link &nbsp;
+
+				a.nav-link(href='#' @click.prevent='logout') Logout
+
 		.col-12.col-md-9
 			transition(name='fade' mode='out-in')
 				router-view
 </template>
 
 <script>
-export default {}
+import jwtToken from '../../helpers/jwt-token'
+export default {
+	methods: {
+		logout () 
+		{
+			jwtToken.removeToken();
+			this.$store.dispatch('unsetAuthUser')
+				.then(() => {
+					this.$noty.success('You are logged out');
+					this.$router.push({name: 'signin'});
+				});
+		}
+	},
+}
 </script>

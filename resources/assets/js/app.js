@@ -43,7 +43,7 @@ axios.interceptors.response.use(response => {
 		store.dispatch('unsetAuthUser')
 			.then(() => {
 				jwtToken.removeToken()
-				router.push({name: 'login'})
+				router.push({name: 'signin'})
 			})
 	}
 

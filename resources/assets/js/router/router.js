@@ -25,7 +25,7 @@ router.beforeEach(async (to, from, next) => {
 		if (store.getters.isLoggedIn || jwtToken.getToken())
 			return next()
 		else
-			return next({name: 'login'})
+			return next({name: 'signin'})
 	}
 	if (to.meta.requiresGuest) {
 		if (store.getters.isLoggedIn || jwtToken.getToken())

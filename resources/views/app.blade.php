@@ -18,10 +18,10 @@
         </script>
     </head>
     <body>
-        <div id="app">
+        <section id="app" class="app">
             <app></app>
-        </div>
-
+		</section>
+		
         <script src="{{ mix('/js/app.js') }}"></script>
     </body>
 </html>
