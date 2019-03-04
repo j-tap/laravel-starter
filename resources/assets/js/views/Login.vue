@@ -28,9 +28,10 @@ export default {
 		...mapActions([
 			'setAuthUser'
 		]),
-		loginSuccess(data) {
+		loginSuccess (data) 
+		{
 			jwtToken.setToken(data.token);
-			this.setAuthUser(data.user);
+			this.setAuthUser(this, data.user);
 			this.$router.push({name: 'profile'});
 		}
 	}

@@ -30,7 +30,8 @@
 import {api} from '../../config'
 
 export default {
-	data () {
+	data () 
+	{
 		return {
 			loading: true,
 			id: null,
@@ -51,7 +52,8 @@ export default {
 				});
 		},
 	},
-	mounted () {
+	mounted () 
+	{
 		this.id = this.$route.params.id
 		this.get()
 	}

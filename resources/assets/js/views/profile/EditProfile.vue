@@ -3,26 +3,27 @@ div
 	h3.mb-4 Edit Profile
 	.card
 		.card-body
-			edit-profile-form(@updateSuccess='updateSuccess')
+			EditProfileForm(@updateSuccess='updateSuccess')
 
 </template>
 
 <script>
-import EditProfileForm from '../../components/profile/EditProfileForm.vue'
 import {mapActions} from 'vuex'
+import EditProfileForm from '../../components/profile/EditProfileForm.vue'
 
 export default {
 	components: {
-		'edit-profile-form': EditProfileForm
+		EditProfileForm,
 	},
 	methods: {
 		...mapActions([
 			'setAuthUser'
 		]),
-		updateSuccess(data) {
+		updateSuccess (data) 
+		{
 			this.setAuthUser(data.user)
 			this.$router.push({name: 'profile'})
-		}
+		},
 	}
 }
 </script>

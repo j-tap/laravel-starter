@@ -11222,6 +11222,14 @@ body {
   opacity: 0;
 }
 
+.custom-file {
+  cursor: pointer;
+}
+
+.custom-file-input {
+  cursor: pointer;
+}
+
 .app {
   position: static;
   min-height: 100%;

@@ -17,7 +17,7 @@ body {
 	min-height: 100%;
 }
 
-// animation
+// Animation
 .fade-enter-active, .fade-leave-active {
   transition: opacity .2s ease;
 }
@@ -25,6 +25,16 @@ body {
   opacity: 0;
 }
 
+// Form
+.custom-file {
+	cursor: pointer;
+
+	&-input {
+		cursor: pointer;
+	}
+}
+
+// Layout
 .app {
 	position: static;
 	min-height: 100%;

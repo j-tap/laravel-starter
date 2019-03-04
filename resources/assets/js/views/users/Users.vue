@@ -2,14 +2,20 @@
 .container
 	h1.display-4(v-once) Users
 
-	.text-center.p-5(v-if='loading') Wait...
+	transition(name='fade')
+		div(v-if='loading')
+			.text-center.p-5 Wait...
 	
-	ul.list-group(v-else)
-		li.list-group-item.list-group-item-action(v-for='user in users')
-			a(:href=`'users/' + user.id`)
-				.d-flex.w-100.justify-content-between
-					h5.mb-1 {{ user.name }}
-					small {{ user.created_at }}
+	transition(name='fade')
+		div(v-if='!loading')
+			ul.list-group(v-if='users.length > 0')
+				li.list-group-item.list-group-item-action(v-for='user in users')
+					a(:href=`'users/' + user.id`)
+						.d-flex.w-100.justify-content-between
+							h5.mb-1 {{ user.name }}
+							small {{ user.created_at }}
+
+			p.text-center.text-warning(v-else) Users not found
 
 </template>
 

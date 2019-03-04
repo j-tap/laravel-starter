@@ -1,9 +1,10 @@
 /* Mutation Types */
-export const SET_USER = 'SET_USER';
-export const UNSET_USER = 'UNSET_USER';
+export const SET_USER = 'SET_USER'
+export const UNSET_USER = 'UNSET_USER'
 
 /* Initial State */
 const initialState = {
+	id: null,
 	name: null,
 	email: null
 };
@@ -11,12 +12,14 @@ const initialState = {
 /* Mutations */
 const mutations = {
 	[SET_USER](state, payload) {
-		state.name = payload.user.name;
-		state.email = payload.user.email;
+		state.id = payload.user.id
+		state.name = payload.user.name
+		state.email = payload.user.email
 	},
 	[UNSET_USER](state, payload) {
-		state.name = null;
-		state.email = null;
+		state.id = null
+		state.name = null
+		state.email = null
 	}
 };
 
@@ -33,7 +36,7 @@ const actions = {
 /* Getters */
 const getters = {
 	isLoggedIn: (state) => {
-		return !!(state.name && state.email);
+		return !!(state.id && state.name && state.email)
 	}
 };
 

@@ -11,9 +11,9 @@
 |
 */
 
-Route::post('register', 'UserController@register');
-Route::post('login', 'UserController@login');
-Route::post('verify', 'UserController@verify');
+Route::post('register', 'AuthController@register');
+Route::post('login', 'AuthController@login');
+Route::post('verify', 'AuthController@verify');
 
 Route::group(['middleware' => 'jwt.auth'], function () 
 {

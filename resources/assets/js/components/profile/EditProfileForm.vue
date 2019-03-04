@@ -1,5 +1,10 @@
 <template lang='pug'>
 form(@submit.prevent='updateProfile')
+
+	.form-group
+		FileUpload(@uploadSuccess='uploadSuccess')
+			Ava(:image='image')
+
 	.form-group
 		label(for='name') Name
 		input.form-control(
@@ -26,64 +31,86 @@ form(@submit.prevent='updateProfile')
 		span(v-show='loading') Updating Profile
 		span(v-show='!loading') Update Profile
 
-	.form-text.text-muted.mt-4 
-		| Update Profile is disabled for demo purpose. 
-		br
-		| Please, enable it from 
-		code updateProfile()
-		| method in EditProfileForm.vue component
-
 </template>
 
 <script>
-import {mapState} from 'vuex'
 import {api} from '../../config'
+import {mapState} from 'vuex'
+import FileUpload from './FileUpload.vue'
+import Ava from './Ava.vue'
 
 export default {
-	data () {
+	components: {
+		FileUpload,
+		Ava,
+	},
+	data () 
+	{
 		return {
 			loading: false,
 			error: {
 				name: '',
-				email: ''
-			}
+				email: '',
+				image: '',
+			},
+			image: null,
 		};
 	},
 	computed: mapState({
 		form: state => {
-			return {...state.auth};
+			return {...state.auth}
 		}
 	}),
 	methods: {
 		updateProfile ()
 		{
-			this.loading = true;
+			this.loading = true
 			axios.post(api.updateUserProfile, this.form)
 				.then((res) => {
-					this.loading = false;
-					this.$noty.success('Profile Updated');
-					this.$emit('updateSuccess', res.data);
+					this.loading = false
+					this.$noty.success('Profile Updated')
+					this.$emit('updateSuccess', res.data)
 				})
 				.catch(err => {
-					(err.response.data.error) && this.$noty.error(err.response.data.error);
+					(err.response.data.error) && this.$noty.error(err.response.data.error)
 
 					(err.response.data.errors)
 						? this.setErrors(err.response.data.errors)
-						: this.clearErrors();
+						: this.clearErrors()
 
-					this.loading = false;
+					this.loading = false
 				});
 		},
 		setErrors (errors)
 		{
-			this.error.name = errors.name ? errors.name[0] : null;
-			this.error.email = errors.email ? errors.email[0] : null;
+			this.error.name = errors.name ? errors.name[0] : null
+			this.error.email = errors.email ? errors.email[0] : null
+			this.error.image = errors.image ? errors.image[0] : null
 		},
 		clearErrors ()
 		{
-			this.error.name = null;
-			this.error.email = null;
-		}
+			this.error.name = null
+			this.error.email = null
+			this.error.image = null
+		},
+		uploadSuccess (data) 
+		{
+			this.image = data.image
+			this.form.image = data.image
+		},
+	},
+	mounted ()
+	{
+		// let src = '/upload/ava/' + this.form.id + '.jpg'
+
+		// let ava = new Image()
+		// ava.src = src
+		// ava.onerror = function ()
+		// {
+		// 	src = 'https://via.placeholder.com/150'
+		// }
+
+		// this.image = src
 	}
 }
 </script>
