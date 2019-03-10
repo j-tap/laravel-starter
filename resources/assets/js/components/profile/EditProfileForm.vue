@@ -2,8 +2,22 @@
 form(@submit.prevent='updateProfile')
 
 	.form-group
-		FileUpload(@uploadSuccess='uploadSuccess')
-			Ava(:image='image')
+		.profile-avaload
+			.profile-ava
+				img(:src='image' alt=' ')
+
+			.custom-file(:class='{"is-invalid" : error.file}')
+				input.custom-file-input#imageFile(
+					ref='file'
+					type='file' 
+					v-on:change='onFileChange'
+					:class='{"is-invalid" : error.file}'
+				)
+				label.custom-file-label(for='imageFile' :class='{"is-invalid" : error.file}') 
+					span(v-if='filename') {{ filename }}
+					span(v-else) Choose image
+					
+				.invalid-feedback(v-if='error.file') {{ error.file }}			
 
 	.form-group
 		label(for='name') Name
@@ -36,24 +50,21 @@ form(@submit.prevent='updateProfile')
 <script>
 import {api} from '../../config'
 import {mapState} from 'vuex'
-import FileUpload from './FileUpload.vue'
-import Ava from './Ava.vue'
 
 export default {
-	components: {
-		FileUpload,
-		Ava,
-	},
 	data () 
 	{
 		return {
+			formData: new FormData(),
 			loading: false,
 			error: {
-				name: '',
-				email: '',
-				image: '',
+				name: null,
+				email: null,
+				file: null,
 			},
 			image: null,
+			file: null,
+			filename: null,
 		};
 	},
 	computed: mapState({
@@ -65,52 +76,93 @@ export default {
 		updateProfile ()
 		{
 			this.loading = true
-			axios.post(api.updateUserProfile, this.form)
-				.then((res) => {
-					this.loading = false
-					this.$noty.success('Profile Updated')
-					this.$emit('updateSuccess', res.data)
-				})
-				.catch(err => {
-					(err.response.data.error) && this.$noty.error(err.response.data.error)
 
-					(err.response.data.errors)
-						? this.setErrors(err.response.data.errors)
-						: this.clearErrors()
-
-					this.loading = false
-				});
+			for ( let key in this.form ) {
+				this.formData.append(key, this.form[key])
+			}
+			//console.log(this.formData.get('file'))
+			
+			axios.post(
+				api.updateUserProfile, 
+				this.formData, { 
+					headers: { 
+						'Content-Type': 'multipart/form-data' 
+					} 
+				}
+			)
+			.then((res) => {
+				this.loading = false
+				this.$noty.success('Profile Updated')
+				this.$emit('updateSuccess', res.data)
+			})
+			.catch(err => {
+				//console.log(err.response.data) //file: ["The file must be a file of type: jpeg, jpg, png, gif."]
+				if (err.response.data.errors) {
+					this.$noty.error(err.response.data.message)
+					this.setErrors(err.response.data.errors)
+				} else {
+					this.clearErrors()
+				}
+					
+				this.loading = false
+			});
 		},
-		setErrors (errors)
+
+		uploadSuccess (data) 
 		{
-			this.error.name = errors.name ? errors.name[0] : null
-			this.error.email = errors.email ? errors.email[0] : null
-			this.error.image = errors.image ? errors.image[0] : null
+			this.image = data.image
+			this.form.file = data.file
 		},
+
+		onFileChange () 
+		{
+			this.file = this.$refs.file.files[0]
+			this.formData.append('file', this.file)
+			this.filename = this.file.name
+
+			this.createImage()
+		},
+
+		createImage () 
+		{
+			let fileReader = new FileReader()
+			let _this = this
+
+			fileReader.onload = (e) => {
+				_this.image = e.target.result
+			};
+			fileReader.readAsDataURL(this.file)
+		},
+
+		setErrors (err)
+		{
+			this.error.name = err.name ? err.name[0] : null
+			this.error.email = err.email ? err.email[0] : null
+			this.error.file = err.file ? err.file[0] : null
+		},
+
 		clearErrors ()
 		{
 			this.error.name = null
 			this.error.email = null
-			this.error.image = null
-		},
-		uploadSuccess (data) 
-		{
-			this.image = data.image
-			this.form.image = data.image
+			this.error.file = null
 		},
 	},
 	mounted ()
 	{
-		// let src = '/upload/ava/' + this.form.id + '.jpg'
 
-		// let ava = new Image()
-		// ava.src = src
-		// ava.onerror = function ()
-		// {
-		// 	src = 'https://via.placeholder.com/150'
-		// }
-
-		// this.image = src
 	}
 }
 </script>
+
+<style scoped lang='scss'>
+.profile-ava {
+	margin-bottom: 15px;
+
+		img {
+			display: block;
+			max-height: 160px;
+			width: auto;
+		}
+}
+</style>

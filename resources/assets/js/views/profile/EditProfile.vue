@@ -21,6 +21,7 @@ export default {
 		]),
 		updateSuccess (data) 
 		{
+			console.log(data)
 			this.setAuthUser(data.user)
 			this.$router.push({name: 'profile'})
 		},
