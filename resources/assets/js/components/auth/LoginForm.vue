@@ -1,93 +1,87 @@
-<template lang='pug'>
-form(@submit.prevent='login')
-	.form-group
-		label(for='email') Email
-		input.form-control(
-			type='email'
-			:class='{"is-invalid": error.email}'
-			id='email'
-			v-model='form.email'
-			:disabled='loading'
+<template lang="pug">
+b-form(
+	novalidate
+	@submit.prevent="submit"
+)
+	b-form-group(
+		label="Email:"
+	)
+		b-form-input(
+			v-model.trim="form.email"
+			type="email"
+			required
+			placeholder="example@mail.com"
+			:disabled="loading"
+			:state="getStateField('form.email')"
+			v-validate="'required|email'"
+			data-vv-as="Email"
+			data-vv-name="form.email"
 		)
-		.invalid-feedback(v-show='error.email') {{ error.email }}
+		b-form-invalid-feedback(:show="errors.first('form.email')") {{ errors.first('form.email') }}
 
-	.form-group
-		label(for='password') Password
-		input.form-control(
-			type='password'
-			:class='{"is-invalid": error.password}'
-			id='password'
-			v-model='form.password'
-			:disabled='loading'
+	b-form-group(
+		label="Password:"
+	)
+		b-form-input(
+			v-model.trim="form.password"
+			type="password"
+			required
+			placeholder="******"
+			:disabled="loading"
+			:state="getStateField('form.password')"
+			v-validate="'required|min:6'"
+			data-vv-as="Пароль"
+			data-vv-name="form.password"
 		)
-		.invalid-feedback(v-show='error.password') {{ error.password }}
+		b-form-invalid-feedback(:show="errors.first('form.password')") {{ errors.first('form.password') }}
 
-	.form-group
-		button.btn.btn-primary.btn-block(type='submit' :disabled='loading')
-			span(v-show='loading') Wait...
-			span(v-show='!loading') Login
+	b-alert(
+		:show="err"
+		variant="danger"
+	) {{err}}
+
+	b-button(
+		variant="primary"
+		size="lg"
+		block
+		type="submit"
+		:disabled="loading"
+	)
+		span(v-show='loading') Wait...
+		span(v-show='!loading') Login
 
 </template>
 
 <script>
-import {api} from '../../config'
+import { Validator } from 'vee-validate'
 
 export default {
 	data () {
 		return {
 			loading: false,
 			form: {
-				email: null,
+				email: 'j-tap@ya.ru',
 				password: null
 			},
-			error: {
-				email: null,
-				password: null
-			}
+			err: null,
 		}
 	},
 	methods: {
-		login ()
+		submit ()
 		{
-			this.loading = true;
-			axios.post(api.login, this.form)
-				.then(res => {
-					this.loading = false;
-					//this.$noty.success('Welcome back!');
-					this.$emit('loginSuccess', res.data);
-					this.$router.push({name: 'profile'});
-				})
-				.catch(err => {
-					const res = err.response.data;
-
-					if (typeof res.error === 'string') {
-						this.$noty.error(res.error)
-
-					} else if (typeof res.error === 'object') {
-						this.setErrors(res.error)
-
-					} else {
-						
-						if (res.errors) {
-							this.setErrors(res.errors)
-						} else {
-							this.clearErrors();
-						}
-					}
-
-					this.loading = false;
-				});
+			this.$validator.validateAll()
+			.then((result) => {
+				if (result) 
+				{
+					this.formSend('login')
+				} 
+				else {
+					
+				}
+			})
 		},
-		setErrors (errors)
-		{
-			this.error.email = errors.email ? errors.email[0] : null;
-			this.error.password = errors.password ? errors.password[0] : null;
-		},
-		clearErrors ()
-		{
-			this.error.email = null;
-			this.error.password = null;
-		}
-	}
+	},
+	mounted () {},
+	watch: {},
 }
 </script>

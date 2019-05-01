@@ -108,7 +108,7 @@ class AuthController extends Controller
 		
 		$rules = [
 			'email' => 'required|email',
-			'password' => 'required',
+			'password' => 'required|min:6',
 		];
 
 		$validator = Validator::make($credentials, $rules);

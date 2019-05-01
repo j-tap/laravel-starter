@@ -1,4 +1,5 @@
-let mix = require('laravel-mix');
+let mix = require('laravel-mix')
+require('dotenv').config()
 
 /*
  |--------------------------------------------------------------------------
@@ -10,6 +11,7 @@ let mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 mix
 	.js('resources/assets/js/app.js', 'public/js')
@@ -17,4 +19,24 @@ mix
 	.copy('resources/assets/img/', 'public/img/', false)
 	.sourceMaps()
 	.disableNotifications()
-	.browserSync('http://laravel-starter')
+	.browserSync(process.env.APP_URL)
+	.webpackConfig(webpack => {
+		return {
+			plugins: [
+				new VueLoaderPlugin()
+			],
+			module: {
+				rules: [
+					{
+						test: /\.pug$/,
+						loader: 'pug-plain-loader',
+					},
+				],
+			},
+			resolve: {
+				alias: {
+					Vue: path.join(__dirname, 'node_modules/vue'),
+				}
+			},
+		}
+	})

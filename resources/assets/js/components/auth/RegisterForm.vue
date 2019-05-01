@@ -64,16 +64,15 @@ export default {
 	methods: {
 		register ()
 		{
-			this.loading = true;
+			this.loading = true
 			axios.post(api.register, this.form)
 				.then(res => {
-					this.loading = false;
-					this.$noty.success(res.data.message);
-					this.$emit('registrationSuccess', res.data);
-					this.$router.push({name: 'index'});
+					this.$noty.success(res.data.message)
+					this.$emit('registrationSuccess', res.data)
+					this.$router.push({name: 'index'})
 				})
 				.catch(err => {
-					const res = err.response.data;
+					const res = err.response.data
 
 					if (typeof res.error === 'string') {
 						this.$noty.error(res.error)
@@ -86,24 +85,25 @@ export default {
 						if (res.errors) {
 							this.setErrors(res.errors)
 						} else {
-							this.clearErrors();
+							this.clearErrors()
 						}
 					}
-
-					this.loading = false;
-				});
+				})
+				.finally(() => {
+					this.loading = false
+				})
 		},
 		setErrors (errors)
 		{
-			this.error.name = errors.name ? errors.name[0] : null;
-			this.error.email = errors.email ? errors.email[0] : null;
-			this.error.password = errors.password ? errors.password[0] : null;
+			this.error.name = errors.name ? errors.name[0] : null
+			this.error.email = errors.email ? errors.email[0] : null
+			this.error.password = errors.password ? errors.password[0] : null
 		},
 		clearErrors ()
 		{
-			this.error.name = null;
-			this.error.email = null;
-			this.error.password = null;
+			this.error.name = null
+			this.error.email = null
+			this.error.password = null
 		}
 	}
 }

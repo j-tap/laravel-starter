@@ -56,10 +56,9 @@ export default {
 	methods: {
 		updatePassword ()
 		{
-			this.loading = true;
+			this.loading = true
 			axios.post(api.updateUserPassword, this.form)
 				.then((res) => {
-					this.loading = false;
 					this.$noty.success('Password updated')
 					this.$emit('updateSuccess')
 				})
@@ -69,9 +68,10 @@ export default {
 					(err.response.data.errors)
 						? this.setErrors(err.response.data.errors)
 						: this.clearErrors()
-
+				})
+				.finally(() => {
 					this.loading = false
-				});
+				})
 		},
 		setErrors (errors)
 		{

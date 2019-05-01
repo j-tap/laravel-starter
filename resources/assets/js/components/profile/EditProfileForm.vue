@@ -4,7 +4,8 @@ form(@submit.prevent='updateProfile')
 	.form-group
 		.profile-avaload
 			.profile-ava
-				img(:src='image' alt=' ')
+				img(v-if='image' :src='image' alt=' ')
+				img(v-else :src='form.ava' alt=' ')
 
 			.custom-file(:class='{"is-invalid" : error.file}')
 				input.custom-file-input#imageFile(
@@ -12,6 +13,7 @@ form(@submit.prevent='updateProfile')
 					type='file' 
 					v-on:change='onFileChange'
 					:class='{"is-invalid" : error.file}'
+					:disabled='loading'
 				)
 				label.custom-file-label(for='imageFile' :class='{"is-invalid" : error.file}') 
 					span(v-if='filename') {{ filename }}

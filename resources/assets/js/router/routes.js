@@ -15,32 +15,38 @@ export default [{
 	name: 'index',
 	component: Home,
 	meta: {}
-}, {
+}, 
+{
 	path: '/signup',
 	name: 'signup',
 	component: Signup,
 	meta: {requiresGuest: true}
-}, {
+}, 
+{
 	path: '/signin',
 	name: 'signin',
 	component: Signin,
 	meta: {requiresGuest: true}
-}, {
+}, 
+{
 	path: '/verify/:code',
 	name: 'verify',
 	component: Verify,
 	meta: {requiresGuest: true}
-}, {
+}, 
+{
 	path: '/users',
 	name: 'users',
 	component: Users,
 	meta: {requiresAuth: true}
-}, {
+}, 
+{
 	path: '/users/:id',
 	name: 'users-profile',
 	component: UsersProfile,
 	meta: {requiresAuth: true}
-}, {
+}, 
+{
 	path: '/profile',
 	component: Profile,
 	children: [
@@ -49,24 +55,28 @@ export default [{
 			name: 'profile',
 			component: ProfileInfo,
 			meta: {requiresAuth: true}
-		}, {
+		}, 
+		{
 			path: 'edit-profile',
 			name: 'profile.editProfile',
 			component: EditProfile,
 			meta: {requiresAuth: true}
-		}, {
+		}, 
+		{
 			path: 'edit-password',
 			name: 'profile.editPassword',
 			component: EditPassword,
 			meta: {requiresAuth: true}
-		}, {
+		}, 
+		{
 			path: '*',
 			redirect: {
 				name: 'profile'
 			}
 		}
 	]
-}, {
+}, 
+{
 	path: '*', 
 	component: PageNotFound
 }]

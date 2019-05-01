@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Config;
 use App\User;
+use App\Image;
 use App\Http\Controllers\ImagesController;
 
 class UserController extends Controller
@@ -12,7 +14,19 @@ class UserController extends Controller
 	/* Show user info */
 	public function show (Request $request)
 	{
-		return $request->user();
+		$user = $request->user();
+
+		$image = new ImagesController();
+		$request->replace([
+			'user_id' => $user->id,
+			'type' => 'ava',
+		]);
+		$ava = $image->get($request);
+		$folder = Config::get('image.folder');
+		$avaPath = '/' . $folder . '/' . $ava->user_id . '/' . $ava->type . '/' . $ava->name;
+		$user[$request->type] = $avaPath;
+
+		return $user;
 	}
 
 	/* Update user info */
@@ -44,7 +58,15 @@ class UserController extends Controller
 			
 			// Send file to action
 			$image = new ImagesController();
-			$resultFileUpload = $image->upload($request);
+			$isFileUpload = $image->upload($request);
+
+			if ($isFileUpload) {
+				$request->replace([
+					'user_id'=> $request->user_id,
+					'type' => $request->type,
+				]);
+				$user[$request->type] = $image->get($request);
+			}
 		}
 
 		return response()->json(compact('user'));

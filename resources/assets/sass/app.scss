@@ -2,7 +2,8 @@
 @import "variables";
 
 // Bootstrap
-@import "~bootstrap/dist/css/bootstrap";
+@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap-vue/src/index.scss';
 
 // noty
 @import "~vuejs-noty/dist/vuejs-noty.css";

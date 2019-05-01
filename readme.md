@@ -13,9 +13,12 @@ Based on [laravel-vue-spa](https://github.com/anindya-dhruba/laravel-vue-spa) An
 * [Vue 2](https://vuejs.org)
 * [Vue Router 3](http://router.vuejs.org)
 * [Vuex 3](http://vuex.vuejs.org)
-* [Axios](https://github.com/mzabriskie/axios)
+* [Axios](https://github.com/axios/axios)
 * [Authentication with JWT Token](https://github.com/tymondesigns/jwt-auth)
+* [Vue I18n](https://github.com/kazupon/vue-i18n)
 * [Pug](https://pugjs.org)
+* [bootstrap-vue](https://bootstrap-vue.js.org/)
+* [vuelidate](https://github.com/vuelidate/vuelidate)
 
 ## Installation:
 * Clone the repo
